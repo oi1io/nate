@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <style>
+        /* Main page styling placeholder */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Tiny login button in the bottom left corner */
+        #bottom-left-login-btn {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            padding: 5px 8px;
+            font-size: 11px;
+            background-color: #333;
+            color: #888;
+            border: 1px solid #444;
+            border-radius: 3px;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.2s, color 0.2s;
+            z-index: 9999;
+        }
+
+        #bottom-left-login-btn:hover {
+            opacity: 1;
+            color: #fff;
+            background-color: #444;
+        }
+
+        /* Hidden Login Modal Overlay */
+        .login-overlay {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        /* Login Box styling */
+        .login-box {
+            background-color: #252525;
+            padding: 25px;
+            border-radius: 8px;
+            border: 1px solid #3a3a3a;
+            width: 280px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        .login-box h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 12px;
+            border: 1px solid #444;
+            border-radius: 4px;
+            background-color: #111;
+            color: #fff;
+            box-sizing: border-box;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .login-box button:hover {
+            background-color: #0056b3;
+        }
+
+        .close-btn {
+            margin-top: 8px;
+            font-size: 12px;
+            color: #aaa;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .close-btn:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Your normal website content goes here -->
+    <h1>Welcome to My Website</h1>
+    <p>This is the main public page.</p>
+
+    <!-- The Secret Login Button -->
+    <button id="bottom-left-login-btn" onclick="openLogin()">Login</button>
+
+    <!-- The Login Form Popup -->
+    <div id="loginOverlay" class="login-overlay">
+        <div class="login-box">
+            <h3>Staff Login</h3>
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button onclick="checkCredentials()">Enter</button>
+            <div class="close-btn" onclick="closeLogin()">Cancel</div>
+        </div>
+    </div>
+
+    <script>
+        const overlay = document.getElementById('loginOverlay');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+
+        // Show the login box
+        function openLogin() {
+            overlay.style.display = 'flex';
+            usernameInput.focus();
+        }
+
+        // Hide the login box
+        function closeLogin() {
+            overlay.style.display = 'none';
+            usernameInput.value = '';
+            passwordInput.value = '';
+        }
+
+        // Check if credentials match your rules
+        function checkCredentials() {
+            const user = usernameInput.value.trim();
+            const pass = passwordInput.value;
+
+            // Rule: Password is 0000 OR 1234 OR Username is NATE (case-insensitive)
+            if (pass === '0000' || pass === '1234' || user.toUpperCase() === 'NATE') {
+                // Redirect to the unblocked games section
+                window.location.href = "unblocked-games.html"; 
+            } else {
+                alert("Incorrect login details.");
+                passwordInput.value = '';
+            }
+        }
+
+        // Allow pressing "Enter" key to submit
+        passwordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkCredentials();
+        });
+        usernameInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkCredentials();
+        });
+    </script>
+</body>
+</html>
